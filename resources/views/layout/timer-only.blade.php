@@ -13,7 +13,6 @@
     <body data-bs-theme="light">
         @yield('content')
         @livewireScripts
-        <script src="{{asset('sweetalert.js')}}"></script>
         <x-livewire-alert::scripts />
         @stack('addon-script')
     </body>

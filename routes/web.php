@@ -18,6 +18,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/', [MainController::class, 'index']);
-Route::get('/timer', [MainController::class, 'timer']);
-Route::get('/setting', [MainController::class, 'setting']);
+// Route::get('/timer', [MainController::class, 'timer']);
+// Route::get('/setting', [MainController::class, 'setting']);
+// Route::get('/preview', [MainController::class, 'preview']);
+Route::get('/timer/{timerCountdown}', [MainController::class, 'timerMulti']);
+Route::get('/setting/{timerCountdown}', [MainController::class, 'settingMulti']);
+Route::get('/preview/{timerCountdown}', [MainController::class, 'previewMulti']);
 

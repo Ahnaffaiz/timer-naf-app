@@ -1,4 +1,4 @@
-<div wire:poll.1s>
+<div wire:poll.1s.keep-alive>
     <h1 style="font-size: 75px">{{gmdate("i:s", $time->time)}}</h1>
     <div class="">
         <button class="btn {{$time?->duration == 60 ? 'btn-danger' : 'btn-outline-danger'}}" wire:click="setDuration(60)">01:00</button>
