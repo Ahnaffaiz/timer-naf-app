@@ -12,6 +12,16 @@ class MainController extends Controller
         return view('home');
     }
 
+    public function engine()
+    {
+        return view('engine');
+    }
+
+    public function engineView()
+    {
+        return view('engine-view');
+    }
+
     public function timer()
     {
         return view('timer');
