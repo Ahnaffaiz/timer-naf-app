@@ -45,7 +45,7 @@ class TimerCommand extends Command
             }
         }
 
-        info('timer is running');
+        // info('timer is running');
         return Command::SUCCESS;
     }
 }
