@@ -27,7 +27,7 @@ class MainController extends Controller
         return view('timer');
     }
 
-    public function timerMulti(TimerCountdown $timerCountdown)
+    public function timerMulti($timerCountdown)
     {
         return view('timer-multi', compact('timerCountdown'));
     }
@@ -37,7 +37,7 @@ class MainController extends Controller
         return view('setting');
     }
 
-    public function settingMulti(TimerCountdown $timerCountdown)
+    public function settingMulti($timerCountdown)
     {
         return view('setting-multi', compact('timerCountdown'));
     }
@@ -47,7 +47,7 @@ class MainController extends Controller
         return view('preview');
     }
 
-    public function previewMulti(TimerCountdown $timerCountdown)
+    public function previewMulti($timerCountdown)
     {
         return view('preview-multi', compact('timerCountdown'));
     }

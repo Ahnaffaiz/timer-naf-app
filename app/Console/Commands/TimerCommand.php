@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Models\TimerCountdown;
+use Illuminate\Support\Facades\Redis;
 
 class TimerCommand extends Command
 {
@@ -28,20 +29,27 @@ class TimerCommand extends Command
      */
     public function handle()
     {
-        $timerCountdowns = TimerCountdown::where('is_play', true)->get();
-        foreach ($timerCountdowns as $timerCountdown) {
-            if($timerCountdown->is_countdown == true && $timerCountdown->time > 0) {
-                $timerCountdown->update([
-                    'time' => $timerCountdown->time -= 1
-                ]);
-            } elseif($timerCountdown->is_countdown == false) {
-                $timerCountdown->update([
-                    'time' => $timerCountdown->time += 1
-                ]);
+
+        $numberOfTimers = 10;
+
+        // Update timers (this can be within a loop or based on your application logic)
+        foreach (range(1, $numberOfTimers) as $i) {
+            $timerKey = 'timer:' . $i;
+            if (!Redis::exists($timerKey) ) continue;
+            $isPlay = Redis::hget($timerKey, 'is_play');
+            if (!$isPlay) continue;
+
+            $isCountdown = Redis::hget($timerKey, 'is_countdown');
+            if ($isCountdown) {
+                Redis::hincrby($timerKey, 'time', -1); // Decrement time by 1 for each timer
             } else {
-                $timerCountdown->update([
-                    'is_play' => false
-                ]);
+                Redis::hincrby($timerKey, 'time', 1); // Increment time by 1 for each timer
+            }
+
+            // Check if timer is stopped
+            $currentValue = Redis::hget($timerKey, 'time');
+            if ($currentValue <= 0) {
+                Redis::hset($timerKey, 'is_play', false); // Set is_play to false when timer reaches 0 or less
             }
         }
 
